@@ -28,12 +28,18 @@ socket.on("chat_message", function (payload) {
 
   chats.appendChild(chat);
   chats.scrollTo(0, chats.scrollHeight);
+
+  const count = parseInt(document.getElementById('message-count').innerText) || 0
+  document.getElementById('message-count').innerText = count + 1
 });
 
 function loadMessages() {
   fetch("/api/messages")
     .then(async (response) => {
       const messages = await response.json();
+
+      document.getElementById('message-count').innerText = messages.length
+
       messages.forEach((payload) => {
         const chats = document.getElementById("chats");
         const chat = document.createElement("div");
