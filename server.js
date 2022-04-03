@@ -2,6 +2,7 @@ const http = require("http");
 const mongoose = require("mongoose");
 const mongoUri = process.env.MONGO_URI || "mongodb://localhost:27017/test";
 const moment = require("moment");
+const MessageModel = require('./src/models/message.model')
 console.log("connecting to mongoDB");
 
 mongoose
@@ -20,12 +21,16 @@ mongoose
     io.of("socket.io").on("connection", (socket) => {
       console.log(socket.id);
 
-      socket.on("chat_message", (payload) => {
-        console.log(payload)
-        io.of("socket.io").emit('chat_message', {
+      socket.on("chat_message", async (payload) => {
+
+        const message = {
           ...payload,
           date: moment().format('LLL'),
-        });
+        }
+
+        io.of("socket.io").emit('chat_message', message);
+
+        await MessageModel.create(message)
       });
     });
 

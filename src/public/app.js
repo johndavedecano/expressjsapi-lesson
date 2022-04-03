@@ -19,7 +19,7 @@ socket.on("chat_message", function (payload) {
   chat.innerHTML = `
     <div class="d-flex align-items-center mb-2">
     <div class="flex-grow-1 fw-bold">${payload.user}</div>
-    <div class="small">${payload.date}</div>
+    <div class="small">${moment(payload.date).fromNow()}</div>
     </div>
     <div class="border p-3 rounded-2">
     ${payload.message}
@@ -29,6 +29,29 @@ socket.on("chat_message", function (payload) {
   chats.appendChild(chat);
   chats.scrollTo(0, chats.scrollHeight);
 });
+
+function loadMessages() {
+  fetch("/api/messages")
+    .then(async (response) => {
+      const messages = await response.json();
+      messages.forEach((payload) => {
+        const chats = document.getElementById("chats");
+        const chat = document.createElement("div");
+        chat.classList.add("mb-4");
+        chat.innerHTML = `
+          <div class="d-flex align-items-center mb-2">
+          <div class="flex-grow-1 fw-bold">${payload.user}</div>
+          <div class="small">${moment(payload.date).fromNow()}</div>
+          </div>
+          <div class="border p-3 rounded-2">
+          ${payload.message}
+          </div>
+        `;
+        chats.appendChild(chat);
+      });
+    })
+    .then((data) => console.log(data));
+}
 
 function sendChat(event) {
   event.preventDefault();
@@ -65,3 +88,5 @@ function sendChat(event) {
 const form = document.getElementById("chat-form");
 
 form.addEventListener("submit", sendChat);
+
+loadMessages();

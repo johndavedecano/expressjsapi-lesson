@@ -11,6 +11,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(morgan("combined"));
 app.use(helmet());
 
+app.use('/moment', express.static(__dirname + '/../node_modules/moment/min'));
 app.use('/scripts', express.static(__dirname + '/../node_modules/socket.io-client/dist'));
 app.use('/assets', express.static(__dirname + '/public'));
 
