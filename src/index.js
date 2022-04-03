@@ -11,8 +11,14 @@ app.use(express.urlencoded({ extended: true }));
 app.use(morgan("combined"));
 app.use(helmet());
 
-app.get("/health", (req, res) => res.send("ok"));
+app.use('/scripts', express.static(__dirname + '/../node_modules/socket.io-client/dist'));
+app.use('/assets', express.static(__dirname + '/public'));
 
+app.get('/chats', (req, res) => {
+  res.sendFile(__dirname + '/public/index.html');
+});
+
+app.get("/health", (req, res) => res.send("ok"));
 app.use("/api", require("./handlers"));
 
 app.use((req, res, next) => {

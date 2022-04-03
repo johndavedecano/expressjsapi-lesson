@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SocketIO</title>
+    <script src="/scripts/socket.io.js"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
+      integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
+      crossorigin="anonymous"
+    />
+    <style>
+      .chats {
+        min-height: 500px;
+        max-height: 500px;
+        overflow: auto;
+        overflow-y: scroll;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="row">
+        <div class="col-md-2"></div>
+        <div class="col-md-8">
+          <div class="card">
+            <div class="card-header py-3">Chats</div>
+            <div class="card-body chats" id="chats"></div>
+            <div class="card-body border-top bg-light">
+              <form action="" id="chat-form">
+                <div class="d-flex align-items-center">
+                  <div class="flex-grow-1 pe-3">
+                    <input
+                      type="text"
+                      id="chat-name"
+                      class="form-control"
+                      placeholder="Send as"
+                    />
+                  </div>
+                  <div class="flex-grow-1 pe-3">
+                    <input
+                      type="text"
+                      id="chat-message"
+                      class="form-control"
+                      placeholder="say what you want..."
+                    />
+                  </div>
+                  <button class="btn btn-primary" id="chat-button">Send</button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-2"></div>
+      </div>
+    </div>
+  </body>
+  <script src="/assets/app.js"></script>
+</html>
